@@ -5,7 +5,7 @@ export type Data = {
 }
 
 export type Empty = {
-    nameUser: boolean,
-    emailUser: boolean,
-    githubUser: boolean
+    emptyNameUser: boolean,
+    emptyEmailUser: boolean,
+    emptyGithubUser: boolean
 }

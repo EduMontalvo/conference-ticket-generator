@@ -17,9 +17,9 @@ const Form = () => {
     })
 
     const [empty, setEmpty] = useState<Empty>({
-        nameUser: false,
-        emailUser: false,
-        githubUser: false
+        emptyNameUser: false,
+        emptyEmailUser: false,
+        emptyGithubUser: false
     })
 
     const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -52,23 +52,19 @@ const Form = () => {
     }
 
     const validarInput = ({ nameUser, emailUser, githubUser }: Data) => ({
-        nameUser: nameUser.trim() === '',
-        emailUser: emailUser.trim() === '',
-        githubUser: githubUser.trim() === ''
+        emptyNameUser: nameUser.trim() === '',
+        emptyEmailUser: emailUser.trim() === '',
+        emptyGithubUser: githubUser.trim() === ''
     })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const isEmpty = validarInput(dataUser)
         setEmpty(isEmpty)
-        console.log(empty)
-        console.log(Object.values(empty))
-
-        if(Object.values(empty).includes(true)){
+        if(Object.values(empty).includes(true) && previewUrl){
             return
         }
-
-        
+        setDataUser(dataUser)
     }
 
     return (
@@ -98,9 +94,9 @@ const Form = () => {
                         <span className='text-white inline text-xs'> Upload your photo (JPG or PNG, max size: 500KB).</span>
                     </div>
 
-                    <FieldForm fieldname={'Full Name'} placeholder={''} name={'userName'} handleInput={handleInput} />
-                    <FieldForm fieldname={'Email Address'} placeholder={'example@email.com'} name={'emailName'} handleInput={handleInput} />
-                    <FieldForm fieldname={'GitHub Username'} placeholder={'@yourusername'} name={'githubName'} handleInput={handleInput} />
+                    <FieldForm fieldname={'Full Name'} placeholder={''} name={'nameUser'} handleInput={handleInput} />
+                    <FieldForm fieldname={'Email Address'} placeholder={'example@email.com'} name={'emailUser'} handleInput={handleInput} />
+                    <FieldForm fieldname={'GitHub Username'} placeholder={'@yourusername'} name={'githubUser'} handleInput={handleInput} />
                     <button className='bg-[#f67464] h-14 font-bold w-full rounded-2xl text-2xl'>Generate My Ticket</button>
                 </div>
                 <img src={BgFooter} alt="" className='absolute bottom-0 left-0 -z-10' />
