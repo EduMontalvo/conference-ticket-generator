@@ -1,0 +1,113 @@
+import IconUpload from '../assets/img/icon-upload.svg'
+import IconInfo from '../assets/img/icon-info.svg'
+import BgFooter from '../assets/img/pattern-squiggly-line-bottom-mobile-tablet.svg'
+import FieldForm from './FieldForm'
+import { useRef, useState } from 'react'
+import type { Data, Empty } from '../types/conference'
+
+
+const Form = () => {
+
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+
+    const [dataUser, setDataUser] = useState<Data>({
+        nameUser: '',
+        emailUser: '',
+        githubUser: ''
+    })
+
+    const [empty, setEmpty] = useState<Empty>({
+        nameUser: false,
+        emailUser: false,
+        githubUser: false
+    })
+
+    const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+    const handleClick = () => {
+        fileInputRef.current?.click()
+    }
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+        const previewUrl = URL.createObjectURL(file)
+        setPreviewUrl(previewUrl)
+    }
+    const handleRemove = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setPreviewUrl(null)
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''
+        }
+    }
+
+    const handleChangeImg = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        fileInputRef.current?.click()
+    }
+
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDataUser({ ...dataUser, [e.target.name]: e.target.value })
+    }
+
+    const validarInput = ({ nameUser, emailUser, githubUser }: Data) => ({
+        nameUser: nameUser.trim() === '',
+        emailUser: emailUser.trim() === '',
+        githubUser: githubUser.trim() === ''
+    })
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const isEmpty = validarInput(dataUser)
+        setEmpty(isEmpty)
+        console.log(empty)
+        console.log(Object.values(empty))
+
+        if(Object.values(empty).includes(true)){
+            return
+        }
+
+        
+    }
+
+    return (
+        <>
+            { }
+            <form action="" className='flex flex-col justify-center relative pb-34 z-0' onSubmit={handleSubmit}>
+                <div className='px-4'>
+                    <label className='text-white text-2xl'>Upload Avatar</label>
+                    <div className='bg-[#1b163e] border-2 border-white border-dashed flex flex-col items-center p-6 space-y-6 rounded-2xl my-4 cursor-pointer' onClick={previewUrl ? undefined : handleClick}>
+                        <img src={previewUrl ? previewUrl : IconUpload} alt="" className='w-16 h-16 bg-[#332f54] border-2 border-[#433d64] rounded-2xl object-cover' />
+                        {previewUrl ?
+                            (
+                                <div className='flex gap-3'>
+                                    <button type='button' className='text-white text-xs bg-[#322e4f] px-3 py-1 rounded-md' onClick={handleRemove}>Remove image</button>
+                                    <button type='button' className='text-white text-xs bg-[#322e4f] px-3 py-1 rounded-md' onClick={handleChangeImg}>Change image</button>
+                                </div>
+                            )
+                            :
+                            (
+                                <p className='text-white'>Drag and drop or click to upload</p>
+                            )
+                        }
+                    </div>
+                    <input type="file" ref={fileInputRef} accept='image/png, image/jpeg' onChange={handleFileChange} className='hidden' />
+                    <div className='flex gap-2'>
+                        <img src={IconInfo} alt="" />
+                        <span className='text-white inline text-xs'> Upload your photo (JPG or PNG, max size: 500KB).</span>
+                    </div>
+
+                    <FieldForm fieldname={'Full Name'} placeholder={''} name={'userName'} handleInput={handleInput} />
+                    <FieldForm fieldname={'Email Address'} placeholder={'example@email.com'} name={'emailName'} handleInput={handleInput} />
+                    <FieldForm fieldname={'GitHub Username'} placeholder={'@yourusername'} name={'githubName'} handleInput={handleInput} />
+                    <button className='bg-[#f67464] h-14 font-bold w-full rounded-2xl text-2xl'>Generate My Ticket</button>
+                </div>
+                <img src={BgFooter} alt="" className='absolute bottom-0 left-0 -z-10' />
+            </form>
+            {previewUrl && <img src={previewUrl} alt="" className="w-32 h-32 object-cover rounded-xl mt-4" />}
+        </>
+    )
+}
+
+export default Form

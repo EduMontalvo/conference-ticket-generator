@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: Inconsolata;
+    src: url('./assets/fonts/Inconsolata-VariableFont_wdth\,wght.ttf');
+}
+
+@theme {
+    --font-inconsolata: Inconsolata
+}
