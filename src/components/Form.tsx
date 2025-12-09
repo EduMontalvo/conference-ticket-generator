@@ -61,10 +61,11 @@ const Form = () => {
         e.preventDefault()
         const isEmpty = validarInput(dataUser)
         setEmpty(isEmpty)
-        if(Object.values(empty).includes(true) && previewUrl){
+        if(Object.values(empty).includes(true) && previewUrl === null){
             return
         }
         setDataUser(dataUser)
+        console.log(dataUser)
     }
 
     return (
