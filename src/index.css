@@ -2,9 +2,13 @@
 
 @font-face {
     font-family: Inconsolata;
-    src: url('./assets/fonts/Inconsolata-VariableFont_wdth\,wght.ttf');
+    font-style: normal;
+    font-weight: 400 500 700 800;
+    font-display: swap;
+    src: url("/src/assets/fonts/Inconsolata-VariableFont_wdth_wght.ttf") format("woff2");
 }
 
 @theme {
-    --font-inconsolata: Inconsolata
+    --font-inconsolata: Inconsolata;
 }
+

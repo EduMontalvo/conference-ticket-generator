@@ -2,6 +2,7 @@ import IconUpload from '../assets/img/icon-upload.svg'
 import IconInfo from '../assets/img/icon-info.svg'
 import BgFooter from '../assets/img/pattern-squiggly-line-bottom-mobile-tablet.svg'
 import navIcon from '../assets/img/logo-full.svg'
+import githubIcon from '../assets/img/icon-github.svg'
 import TicketInfo from '../assets/img/pattern-ticket.svg'
 import FieldForm from './FieldForm'
 import { useRef, useState } from 'react'
@@ -79,12 +80,29 @@ const Form = () => {
                 <Hero isHidden={showContent} nameUser={dataUser.nameUser} emailUser={dataUser.emailUser} />
 
                 {showContent ?
-                    <div className='my-10'>
-                        <div>
-                            <img src={TicketInfo} alt="" className='w-[90%] mx-auto' />
-                            <img src={navIcon} alt="" />
-                            <img src={previewUrl ? previewUrl : ''} alt="" className='w-16 h-16 bg-[#332f54] border-2 border-[#433d64] rounded-2xl object-cover' />
+                    <div className='px-4 flex-1 flex flex-col relative'>
+                        <img
+                            src={TicketInfo}
+                            alt=""
+                            className='absolute top-0 left-1/2 -translate-x-1/2 w-[95%] h-auto object-contain pointer-events-none'
+                        />
+                        <div className='flex flex-col relative h-full w-[80%] justify-center gap-6 p-5'>
+                            <div className='w-full '>
+                                <img src={navIcon} alt="" className=''/>
+                                <p className='text-white ml-12'>Jan 31, 2025 / Austin, TX </p>
+                            </div>
+                            <div className='flex items-center gap-3.5'>
+                                <img src={previewUrl ? previewUrl : ''} alt="" className='w-16 h-16 bg-[#332f54] border-2 border-[#433d64] rounded-xl object-cover' />
+                                <div>
+                                    <h2 className='text-white'>{dataUser.nameUser}</h2>
+                                    <div className='flex'>
+                                        <img src={githubIcon} alt="" />
+                                        <p className='text-white'>{dataUser.githubUser}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <img src={BgFooter} alt="" className='absolute bottom-0 left-0' />
                     </div>
                     :
@@ -126,5 +144,3 @@ const Form = () => {
 }
 
 export default Form
-
-/*  */
